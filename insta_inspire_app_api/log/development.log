@@ -792,3 +792,19 @@ Processing by QuotesController#search as */*
 Completed 200 OK in 7ms (Views: 5.4ms | ActiveRecord: 0.6ms | Allocations: 772)
 
 
+Started GET "/quotes/search" for ::1 at 2021-01-20 12:42:39 -0600
+  [1m[35m (1.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by QuotesController#search as HTML
+  [1m[36mQuote Load (1.1ms)[0m  [1m[34mSELECT "quotes".* FROM "quotes" WHERE "quotes"."mood" IS NULL[0m
+  ↳ app/controllers/quotes_controller.rb:51:in `search'
+Completed 200 OK in 30ms (Views: 4.5ms | ActiveRecord: 5.2ms | Allocations: 4991)
+
+
+Started GET "/quotes/search?q=sad" for ::1 at 2021-01-20 13:49:05 -0600
+Processing by QuotesController#search as HTML
+  Parameters: {"q"=>"sad"}
+  [1m[36mQuote Load (1.3ms)[0m  [1m[34mSELECT "quotes".* FROM "quotes" WHERE "quotes"."mood" = $1[0m  [["mood", "sad"]]
+  ↳ app/controllers/quotes_controller.rb:51:in `search'
+Completed 200 OK in 170ms (Views: 148.8ms | ActiveRecord: 36.3ms | Allocations: 5854)
+
+

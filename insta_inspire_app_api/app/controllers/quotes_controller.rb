@@ -46,6 +46,7 @@ class QuotesController < ApplicationController
   end
 
   # SEARCH /quotes/search
+  # localhost:3000/quotes/search?q=sad
   def search
     quotes = Quote.where(mood: params[:q])
     render json: quotes
