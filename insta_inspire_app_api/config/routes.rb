@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :quotes
+  resources :quotes do
+    get "search", on: :collection
+  end
   resources :users do 
     resources :quotes, only: [:create]
   end

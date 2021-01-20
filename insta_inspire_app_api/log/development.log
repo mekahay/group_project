@@ -723,3 +723,72 @@ Processing by QuotesController#show as HTML
 Completed 200 OK in 21ms (Views: 2.4ms | ActiveRecord: 1.2ms | Allocations: 704)
 
 
+Started GET "/quotes/search?q=sad" for ::1 at 2021-01-20 12:22:17 -0600
+  [1m[35m (3.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by QuotesController#search as */*
+  Parameters: {"q"=>"sad"}
+Completed 500 Internal Server Error in 17ms (ActiveRecord: 0.0ms | Allocations: 3717)
+
+
+  
+NoMethodError (undefined method `put' for #<QuotesController:0x007ff5162ee9e8>
+Did you mean?  puts
+               putc):
+  
+app/controllers/quotes_controller.rb:50:in `search'
+Started GET "/quotes/search?q=sad" for ::1 at 2021-01-20 12:23:00 -0600
+Processing by QuotesController#search as */*
+  Parameters: {"q"=>"sad"}
+Completed 204 No Content in 0ms (ActiveRecord: 0.0ms | Allocations: 64)
+
+
+Started GET "/quotes/search?q=sad" for ::1 at 2021-01-20 12:25:17 -0600
+Processing by QuotesController#search as */*
+  Parameters: {"q"=>"sad"}
+Completed 500 Internal Server Error in 16ms (ActiveRecord: 0.0ms | Allocations: 2681)
+
+
+  
+NameError (undefined local variable or method `q' for #<QuotesController:0x007ff51921ff78>):
+  
+app/controllers/quotes_controller.rb:50:in `search'
+Started GET "/quotes/search?q=sad" for ::1 at 2021-01-20 12:25:29 -0600
+Processing by QuotesController#search as */*
+  Parameters: {"q"=>"sad"}
+  [1m[36mQuote Load (4.5ms)[0m  [1m[34mSELECT "quotes".* FROM "quotes" WHERE "quotes"."id" = $1 LIMIT $2[0m  [["id", nil], ["LIMIT", 1]]
+  ↳ app/controllers/quotes_controller.rb:50:in `search'
+Completed 404 Not Found in 55ms (ActiveRecord: 29.0ms | Allocations: 2239)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Quote with 'id'={:mood=>"sad"}):
+  
+app/controllers/quotes_controller.rb:50:in `search'
+Started GET "/quotes/search?q=overwhelmed" for ::1 at 2021-01-20 12:25:45 -0600
+Processing by QuotesController#search as */*
+  Parameters: {"q"=>"overwhelmed"}
+  [1m[36mQuote Load (1.3ms)[0m  [1m[34mSELECT "quotes".* FROM "quotes" WHERE "quotes"."id" = $1 LIMIT $2[0m  [["id", nil], ["LIMIT", 1]]
+  ↳ app/controllers/quotes_controller.rb:50:in `search'
+Completed 404 Not Found in 6ms (ActiveRecord: 1.3ms | Allocations: 694)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Quote with 'id'={:mood=>"overwhelmed"}):
+  
+app/controllers/quotes_controller.rb:50:in `search'
+Started GET "/quotes/search?q=overwhelmed" for ::1 at 2021-01-20 12:26:18 -0600
+Processing by QuotesController#search as */*
+  Parameters: {"q"=>"overwhelmed"}
+  [1m[36mQuote Load (1.6ms)[0m  [1m[34mSELECT "quotes".* FROM "quotes" WHERE "quotes"."mood" = $1[0m  [["mood", "overwhelmed"]]
+  ↳ app/controllers/quotes_controller.rb:51:in `search'
+Completed 200 OK in 110ms (Views: 25.2ms | ActiveRecord: 13.8ms | Allocations: 4814)
+
+
+Started GET "/quotes/search?q=sad" for ::1 at 2021-01-20 12:26:30 -0600
+Processing by QuotesController#search as */*
+  Parameters: {"q"=>"sad"}
+  [1m[36mQuote Load (0.6ms)[0m  [1m[34mSELECT "quotes".* FROM "quotes" WHERE "quotes"."mood" = $1[0m  [["mood", "sad"]]
+  ↳ app/controllers/quotes_controller.rb:51:in `search'
+Completed 200 OK in 7ms (Views: 5.4ms | ActiveRecord: 0.6ms | Allocations: 772)
+
+
