@@ -1,51 +1,54 @@
 class QuotesController < ApplicationController
-  before_action :set_quote, only: [:show, :update, :destroy]
 
   # GET /quotes
   def index
     @quotes = Quote.all
 
-    render json: @quotes
+    render json: @quotes.to_json(include: :user)
+
   end
 
   # GET /quotes/1
   def show
-    render json: @quote
+    quote = Quote.find(params[:id])
+    render(json: { quote: quote })
   end
 
   # POST /quotes
   def create
-    @quote = Quote.new(quote_params)
-
-    if @quote.save
-      render json: @quote, status: :created, location: @quote
+    quote = Quote.new(quote_params)
+    quote.user_id = params[:user_id]
+    if quote.save
+      render json: { quote: quote }
     else
-      render json: @quote.errors, status: :unprocessable_entity
+      render(status: 422, json: { quote:quote, errors: quote.errors })
     end
   end
 
   # PATCH/PUT /quotes/1
   def update
-    if @quote.update(quote_params)
-      render json: @quote
+    quote = Quote.find(params[:id])
+    if quote.update(quote_params)
+        render(status: 200, json: { quote:quote, errors: quote.errors })
     else
-      render json: @quote.errors, status: :unprocessable_entity
+        render(status: 422, json: { quote:quote, errors: quote.errors })
     end
   end
 
   # DELETE /quotes/1
   def destroy
-    @quote.destroy
+    quote = Quote.find(params[:id])
+    if tweet.destroy
+      render(status: 204)
+    else
+      render(status: 422, json: { tweet:tweet, errors: tweet.errors })
+    end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_quote
-      @quote = Quote.find(params[:id])
-    end
+  
+  def quote_params
+    params.require(:quote).permit(:text, :mood)
+  end
 
-    # Only allow a list of trusted parameters through.
-    def quote_params
-      params.require(:quote).permit(:text, :mode)
-    end
 end
