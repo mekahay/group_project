@@ -41,7 +41,7 @@ class QuotesController < ApplicationController
     if tweet.destroy
       render(status: 204)
     else
-      render(status: 422, json: { tweet:tweet, errors: tweet.errors })
+      render(status: 422, json: { quote:quote, errors: quote.errors })
     end
   end
 
