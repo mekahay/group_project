@@ -38,7 +38,7 @@ class QuotesController < ApplicationController
   # DELETE /quotes/1
   def destroy
     quote = Quote.find(params[:id])
-    if tweet.destroy
+    if quote.destroy
       render(status: 204)
     else
       render(status: 422, json: { quote:quote, errors: quote.errors })
